@@ -5,10 +5,63 @@
  */
 package dao;
 
+import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import model.Produto;
+
 /**
  *
  * @author Alunos
  */
 public class ProdutoDao {
+    
+    public boolean create(Produto produto) {
+        EntityManager em = Conexao.getConexao();
+        
+        try {
+            em.getTransaction().begin();
+            em.persist(produto);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception exception) {
+            System.out.println(exception);
+        } finally {
+            em.close();
+        }
+        
+        return false;
+    }
+    
+    public boolean update(Produto p) {
+        EntityManager em = Conexao.getConexao();
+        
+        try {
+            em.getTransaction().begin();
+            em.merge(p);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception exception) {
+            System.out.println(exception);
+        } finally {
+            em.close();
+        }
+        
+        return false;
+    }
+    
+    public Produto findById(int id) {
+        EntityManager em = Conexao.getConexao();
+        
+        try {
+            Produto p = em.find(Produto.class, id);
+            return p;
+        } catch (Exception exception) {
+            System.out.println(exception);
+        } finally {
+            em.close();
+        }
+        
+        return null;
+    }
     
 }
