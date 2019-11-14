@@ -15,9 +15,15 @@ import model.Produto;
  */
 public class ProdutoDao {
     
+    public boolean store(Produto p) {
+        if (p.getId() != 0) {
+            return this.update(p);
+        }
+        return this.create(p);
+    }
+    
     public boolean create(Produto produto) {
         EntityManager em = Conexao.getConexao();
-        
         try {
             em.getTransaction().begin();
             em.persist(produto);
@@ -28,7 +34,6 @@ public class ProdutoDao {
         } finally {
             em.close();
         }
-        
         return false;
     }
     
