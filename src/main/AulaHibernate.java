@@ -5,6 +5,7 @@
  */
 package main;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -28,10 +29,20 @@ public class AulaHibernate {
         em.getTransaction().begin();
         em.persist(prod);
         em.getTransaction().commit();
+        System.out.println("Id inserido: " + prod.getId());
+        
+        prod = em.find(Produto.class, 2);
+        System.out.println("Id achado: " + prod.getId());
+        
+        List<Produto> produtos;
+        produtos = em.createQuery("from Produto where descricao = 'Batat'").getResultList();
+        for (Produto p : produtos) {
+            System.out.println("Lista:: " + p.getId());
+        }
+        
         em.close();
-        
         emf.close();
-        
+         
     }
     
 }

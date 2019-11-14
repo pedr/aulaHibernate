@@ -23,7 +23,9 @@ public class Produto {
     private String descricao;
     private float preco;
     private boolean estado;
-
+    
+    public Produto() {}
+    
     public Produto(int codigo, String descricao, float preco, boolean estado) {
         this.codigo = codigo;
         this.descricao = descricao;
@@ -31,8 +33,6 @@ public class Produto {
         this.estado = estado;
     }
     
-    
-
     public int getId() {
         return id;
     }
